@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace TP_Promo_Web.Páginas
+namespace TP_Promo_Web.Presentacion
 {
 
 

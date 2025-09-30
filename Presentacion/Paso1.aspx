@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Paso1.aspx.cs" Inherits="TP_Promo_Web.Páginas.Paso1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Paso1.aspx.cs" Inherits="TP_Promo_Web.Presentacion.Paso1" %>
 
 <!DOCTYPE html>
 

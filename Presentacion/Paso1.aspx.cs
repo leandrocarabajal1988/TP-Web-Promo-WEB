@@ -8,7 +8,7 @@ using TP_Promo_Web.Negocio;
 using TP_Promo_Web.Datos;
 
 
-namespace TP_Promo_Web.Páginas
+namespace TP_Promo_Web.Presentacion
 {
     public partial class Paso1 : System.Web.UI.Page
     {
