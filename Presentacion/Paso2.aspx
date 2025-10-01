@@ -46,25 +46,40 @@
             cursor: pointer;
         }
     </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
     <form id="form1" runat="server">
         <h2>Seleccioná tu premio</h2>
-        <asp:Repeater ID="rptPremios" runat="server">
-            <ItemTemplate>
-                <div style="margin-bottom: 30px; border-bottom: 1px solid #ccc;">
-                    <strong><%# Eval("Nombre") %></strong><br />
-                    <em><%# Eval("Descripcion") %></em><br />
-                    <span>Precio: $<%# Eval("Precio") %></span><br />
-                    <!--Tengo que mostrar el precio si es un premio???-->
-                    <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
-                        <ItemTemplate>
-                            <img src='<%# Container.DataItem %>' alt="Imagen" width="150" class="premio-img" style="margin: 5px;" onclick="abrirModal('<%# Container.DataItem %>')" />
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+        <div class="container text-center">
+            <div class="row row-cols-2">
+                <asp:Repeater ID="rptPremios" runat="server">
+                    <ItemTemplate>
+                        <div style="margin-bottom: 30px; border-bottom: 1px solid #ccc;" class="col grid text-center overflow-x-auto">
+                            <div>
+                                <strong><%# Eval("Nombre") %></strong><br />
+                            </div>
+                            <div>
+                                <em><%# Eval("Descripcion") %></em><br />
+                            </div>
+                            <div class="g-col-2">
+                                <span>Precio: $<%# Eval("Precio") %></span><br />
+                            </div>
+                            <!--Tengo que mostrar el precio si es un premio???-->
+                            <div>
+                                <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
+                                    <ItemTemplate>
+                                        <img src='<%# Container.DataItem %>' alt="Imagen" width="150" class="premio-img img-thumbnail" style="margin: 5px;" onclick="abrirModal('<%# Container.DataItem %>')" />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            <asp:Button Text="Elegir" class="btn btn-secondary" runat="server" />
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
     </form>
     <script>
         function abrirModal(src) {
@@ -82,6 +97,8 @@
         <span class="close" onclick="cerrarModal()">&times;</span>
         <img class="modal-content" id="imgModal" />
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
 
