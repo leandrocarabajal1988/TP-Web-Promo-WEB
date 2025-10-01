@@ -6,6 +6,10 @@
 <head runat="server">
     <title>Seleccioná tu premio</title>
     <style>
+        .navbar {
+            margin-bottom: 30px;
+        }
+
         .premio-img {
             transition: transform 0.3s ease;
             cursor: pointer;
@@ -51,9 +55,14 @@
 </head>
 <body>
     <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                <p class="navbar-brand" runat="server">Elegi Tu Premio !!!</p>
+                <a class="navbar-brand" runat="server" href="~/">x</a>
+            </div>
+        </nav>
     </header>
     <form id="form1" runat="server">
-        <h2>Seleccioná tu premio</h2>
         <div class="container">
             <div class="row">
                 <asp:Repeater ID="rptPremios" runat="server">
@@ -132,4 +141,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
-
