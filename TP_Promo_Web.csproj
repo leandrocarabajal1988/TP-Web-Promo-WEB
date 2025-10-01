@@ -123,6 +123,7 @@
     <Content Include="Global.asax" />
     <Content Include="Presentacion\Paso1.aspx" />
     <Content Include="Presentacion\Paso2.aspx" />
+    <Content Include="Presentacion\Paso3.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -215,6 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\ClienteNegocio.cs" />
     <Compile Include="Negocio\PremioNegocio.cs" />
     <Compile Include="Negocio\VoucherNegocio.cs" />
     <Compile Include="Presentacion\Paso2.aspx.cs">
@@ -223,6 +225,13 @@
     </Compile>
     <Compile Include="Presentacion\Paso2.aspx.designer.cs">
       <DependentUpon>Paso2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Paso3.aspx.cs">
+      <DependentUpon>Paso3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Paso3.aspx.designer.cs">
+      <DependentUpon>Paso3.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Presentacion\Paso1.aspx.cs">
