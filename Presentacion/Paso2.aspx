@@ -22,8 +22,8 @@
             padding-top: 60px;
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
+            width: auto;
+            height: auto;
             overflow: auto;
             background-color: rgba(0,0,0,0.8);
         }
@@ -50,31 +50,54 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
+    <header>
+    </header>
     <form id="form1" runat="server">
         <h2>Seleccioná tu premio</h2>
-        <div class="container text-center">
-            <div class="row row-cols-2">
+        <div class="container">
+            <div class="row">
                 <asp:Repeater ID="rptPremios" runat="server">
                     <ItemTemplate>
-                        <div style="margin-bottom: 30px; border-bottom: 1px solid #ccc;" class="col grid text-center overflow-x-auto">
-                            <div>
-                                <strong><%# Eval("Nombre") %></strong><br />
+                        <div class="col-md-4 mb-4">
+                            <div class="card" style="width: 24rem;">
+                                <%-- Sección de imágenes con carousel si hay múltiples imágenes --%>
+                                <div id="carousel<%# Container.ItemIndex %>" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
+                                            <ItemTemplate>
+                                                <div class="carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>">
+                                                    <img src='<%# Container.DataItem %>' class="card-img-top" alt="Imagen Premio" style="height: 200px; object-fit: cover;" onclick="abrirModal('<%# Container.DataItem %>')" />
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%# Container.ItemIndex %>" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel<%# Container.ItemIndex %>" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                                    <p class="card-text"><%# Eval("Descripcion") %></p>
+                                </div>
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <strong>Precio:</strong> $<%# Eval("Precio") %>
+                                    </li>
+                                </ul>
+
+                                <div class="card-body text-center">
+                                    <asp:Button Text="Elegir"
+                                        CssClass="btn btn-primary w-100"
+                                        runat="server" />
+                                </div>
                             </div>
-                            <div>
-                                <em><%# Eval("Descripcion") %></em><br />
-                            </div>
-                            <div class="g-col-2">
-                                <span>Precio: $<%# Eval("Precio") %></span><br />
-                            </div>
-                            <!--Tengo que mostrar el precio si es un premio???-->
-                            <div>
-                                <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
-                                    <ItemTemplate>
-                                        <img src='<%# Container.DataItem %>' alt="Imagen" width="150" class="premio-img img-thumbnail" style="margin: 5px;" onclick="abrirModal('<%# Container.DataItem %>')" />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </div>
-                            <asp:Button Text="Elegir" class="btn btn-secondary" runat="server" />
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -97,6 +120,9 @@
         <span class="close" onclick="cerrarModal()">&times;</span>
         <img class="modal-content" id="imgModal" />
     </div>
+
+    <footer>Footer</footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
