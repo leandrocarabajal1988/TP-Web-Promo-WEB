@@ -162,5 +162,76 @@ namespace TP_Promo_Web.Negocio
             }
         }
 
+
+        public bool modificar(Premio art)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Actualizar los datos del artículo
+                //    string consultaArticulo = @"
+                //UPDATE ARTICULOS
+                //SET Codigo=@Codigo,
+                //    Nombre=@Nombre,
+                //    Descripcion=@Descripcion,
+                //    Precio=@Precio,
+                //    IdMarca=@IdMarca,
+                //    IdCategoria=@IdCategoria
+                //WHERE Id=@Id";
+
+                string consultaArticulo = @"
+            UPDATE ARTICULOS
+            SET Codigo=@Codigo,
+                Nombre=@Nombre,
+                Descripcion=@Descripcion,
+                Precio=@Precio
+            WHERE Id=@Id";
+
+                datos.setConsulta(consultaArticulo);
+
+                datos.setearParametro("@Codigo", art.Codigo);
+                datos.setearParametro("@Nombre", art.Nombre);
+                datos.setearParametro("@Descripcion", art.Descripcion);
+                datos.setearParametro("@Precio", art.Precio);
+                //datos.setearParametro("@IdMarca", art.marca.IdMarca);
+                //datos.setearParametro("@IdCategoria", art.categoria.IdCategoria);
+                datos.setearParametro("@Id", art.Id);
+
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
+                AccesoDatos datosImg = new AccesoDatos();
+
+                // Actualizar la URL de la imagen principal si existe (tengo dudas como actualizar una url que no sea la principal)
+                //if (art.imagen != null && art.imagen.IdImagen > 0)
+                //{
+                //    string consultaImagen = @"
+                //UPDATE IMAGENES
+                //SET ImagenUrl=@ImagenUrl
+                //WHERE Id=@IdImagen AND IdArticulo=@IdArticulo";
+
+                //    datosImg.setConsulta(consultaImagen);
+                //    datosImg.setearParametro("@ImagenUrl", art.imagen.ImagenUrl);
+                //    datosImg.setearParametro("@IdImagen", art.imagen.IdImagen);
+                //    datosImg.setearParametro("@IdArticulo", art.IdArticulo);
+
+                //    datosImg.ejecutarAccion();
+                //    datosImg.cerrarConexion();
+                //}
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+
+            }
+        }
+
     }
 }

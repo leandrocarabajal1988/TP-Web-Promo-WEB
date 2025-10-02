@@ -13,7 +13,7 @@ namespace TP_Promo_Web.PaginasAdmin
     public partial class AgregarPremio : System.Web.UI.Page
     {
         protected Premio premioModificar;
-        protected bool premioError ;
+        protected bool premioError;
         protected bool premioSuccess;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace TP_Promo_Web.PaginasAdmin
                             premioError = true;
                             txtError.Text = "No se pudo encontrar premio en la base de datos";
                         }
-                        else 
+                        else
                         {
                             // si encontró
                             txtId.Text = premioModificar.Id.ToString();
@@ -75,43 +75,47 @@ namespace TP_Promo_Web.PaginasAdmin
                     premioCargar.Precio = decimal.Parse(txtPrecio.Text);
                     /// FALTA LISTA IMAGENES
                     /// 
-                    if (negocio.buscarPorID(premioCargar.Id) == null)
+
+                    if (Request.QueryString["Id"] == null)
                     {
-                        if (Request.QueryString["Id"] == null) 
+                        // Cargado nuevo premio
+                        // negocio.agregar(premio);
+                        try
                         {
-                            // Cargado nuevo premio
-                            // negocio.agregar(premio);
-                            try
-                            {
-                                if (negocio.agregar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio SUbido correctamente"; }
-                            }
-                            catch (Exception ex)
-                            {
-                                premioError = true;
-                                txtError.Text = "Problema al cargar Premio";
-                            }
+                            if (negocio.agregar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio SUbido correctamente"; }
                         }
-                        else if (Request.QueryString["Id"] != null) 
+                        catch (Exception ex)
                         {
-                            // Modificando articulo
-                            // negocio.modificar(premio);
+                            premioError = true;
+                            txtError.Text = "Problema al cargar Premio";
                         }
                     }
-                    else
+                    else if (Request.QueryString["Id"] != null)
                     {
-                        premioError = true;
-                        txtError.Text = "Esta Cargando un articulo ya existente en el sistema";
+                        // Modificando articulo
+                        // negocio.modificar(premio);
+                        try
+                        {
+                            if (negocio.modificar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio Modificado correctamente"; }
+                            else { premioError = true; txtError.Text = "Error modificando premio"; }
+                        }
+                        catch (Exception ex)
+                        {
+                            premioError = true;
+                            txtError.Text = "Problema al modificar Premio";
+                        }
                     }
-                    // IF TODO ESTA LLENO MANDAR BASE DE DATOS
+
+
                 }
                 else { premioError = true; txtError.Text = "Llene todos los campos"; }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 premioError = true;
                 txtError.Text = "Error al Cargar Premio";
             }
-            
+
         }
     }
 }
