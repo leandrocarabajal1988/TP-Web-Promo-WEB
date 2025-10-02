@@ -9,10 +9,6 @@
         .navbar {
             margin-bottom: 30px;
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6f81d72eae877e360f2ebbe18c5a2d9dcf0dd1a8
         .premio-img {
             transition: transform 0.3s ease;
             cursor: pointer;
@@ -58,11 +54,7 @@
 </head>
 <body>
     <header>
-<<<<<<< HEAD
-         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-=======
                 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
->>>>>>> 6f81d72eae877e360f2ebbe18c5a2d9dcf0dd1a8
             <div class="container">
                 <p class="navbar-brand" runat="server">Elegi Tu Premio !!!</p>
                 <a class="navbar-brand" runat="server" href="~/">x</a>
