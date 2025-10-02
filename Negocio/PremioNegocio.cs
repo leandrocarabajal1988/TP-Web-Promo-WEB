@@ -72,6 +72,9 @@ namespace TP_Promo_Web.Negocio
 
         public Premio buscarPorID(int id)
         {
+            // Si encuentra Retona objeto encontrado
+            // Caso contrario devulve null
+
             AccesoDatos datos = new AccesoDatos();
             Premio auxiliar = null;
 
@@ -104,6 +107,59 @@ namespace TP_Promo_Web.Negocio
                 datos.cerrarConexion();
             }
 
+        }
+
+        public bool agregar(Premio nuevo) 
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            //string insertArticulo = "INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio)" +
+            //                        " VALUES(@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)";
+
+            string insertArticulo = "INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, Precio)" +
+                                    " VALUES(@Codigo, @Nombre, @Descripcion, @Precio)";
+
+            try
+            {
+                datos.setConsulta(insertArticulo);
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                //datos.setearParametro("@IdMarca", nuevo.marca.IdMarca);
+                //datos.setearParametro("@IdCategoria", nuevo.categoria.IdCategoria);
+                datos.setearParametro("@Precio", nuevo.Precio);
+
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
+                //NUEVO Agregar la imagen al cargar
+                // Obtengo el Id del artículo recién insertado
+                datos.setConsulta("SELECT MAX(Id) AS IdArticulo FROM ARTICULOS");
+                datos.ejecutarLectura();
+                int idArticulo = 0;
+                if (datos.Lector.Read())
+                {
+                    idArticulo = Convert.ToInt32(datos.Lector["IdArticulo"]);
+                }
+                datos.cerrarConexion();
+                // Inserto la imagen
+                //string insertImagen = "INSERT INTO IMAGENES(IdArticulo, ImagenUrl) VALUES(@IdArticulo, @ImagenUrl)";
+                //datos.setConsulta(insertImagen);
+                //datos.setearParametro("@IdArticulo", idArticulo);
+                //datos.setearParametro("@ImagenUrl", nuevo.imagen.ImagenUrl);
+                //datos.ejecutarAccion();
+                //datos.cerrarConexion();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
     }

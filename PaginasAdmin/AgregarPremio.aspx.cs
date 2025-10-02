@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,10 +13,11 @@ namespace TP_Promo_Web.PaginasAdmin
     public partial class AgregarPremio : System.Web.UI.Page
     {
         protected Premio premioModificar;
-        protected int premioError ;
+        protected bool premioError ;
+        protected bool premioSuccess;
         protected void Page_Load(object sender, EventArgs e)
         {
-            premioError = 0;
+            premioError = false;
 
             if (!IsPostBack)
             {
@@ -31,7 +33,8 @@ namespace TP_Promo_Web.PaginasAdmin
                         if (premioModificar == null)
                         {
                             // no encuentra premio en busca x id
-                            premioError = 1;
+                            premioError = true;
+                            txtError.Text = "No se pudo encontrar premio en la base de datos";
                         }
                         else 
                         {
@@ -41,37 +44,73 @@ namespace TP_Promo_Web.PaginasAdmin
                             txtNombre.Text = premioModificar.Nombre;
                             txtDesc.Text = premioModificar.Descripcion;
                             txtPrecio.Text = premioModificar.Precio.ToString();
+                            /// FALTA LISTA IMAGENES
+
                         }
                     }
                     catch (Exception ex)
                     {
-                        premioError = 2;
-                        txtId.Text = "Problema Leyendo ID de premio a modificar";
+                        premioError = true;
+                        txtError.Text = "Error, Revise los datos y vuelva a cargar";
                         Console.WriteLine(ex);
                     }
                 }
-                else
-                {
-                    // Si vino sin parametro Id viene vacio
-                    // Hacer Cargado d nuevo premio
-                    
-                }
-
-
             }
         }
 
         protected void brnAceptar_Click(object sender, EventArgs e)
         {
             PremioNegocio negocio = new PremioNegocio();
-            Premio premioCargar = new Premio();
+            Premio premioCargar = new Premio(); ;
+            try
+            {
+                if (Request.QueryString["Id"] != null) { premioCargar.Id = int.Parse(Request.QueryString["Id"]); }
 
-            premioCargar.Id = int.Parse(txtId.Text);
-            premioCargar.Codigo = txtCod.Text;
-            premioCargar.Nombre = txtNombre.Text;
-            premioCargar.Descripcion = txtDesc.Text;
-            premioCargar.Precio = decimal.Parse(txtPrecio.Text);
 
+                if (txtCod.Text != "" && txtNombre.Text != "" && txtDesc.Text != "" && txtPrecio.Text != "")
+                {
+                    premioCargar.Codigo = txtCod.Text;
+                    premioCargar.Nombre = txtNombre.Text;
+                    premioCargar.Descripcion = txtDesc.Text;
+                    premioCargar.Precio = decimal.Parse(txtPrecio.Text);
+                    /// FALTA LISTA IMAGENES
+                    /// 
+                    if (negocio.buscarPorID(premioCargar.Id) == null)
+                    {
+                        if (Request.QueryString["Id"] == null) 
+                        {
+                            // Cargado nuevo premio
+                            // negocio.agregar(premio);
+                            try
+                            {
+                                if (negocio.agregar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio SUbido correctamente"; }
+                            }
+                            catch (Exception ex)
+                            {
+                                premioError = true;
+                                txtError.Text = "Problema al cargar Premio";
+                            }
+                        }
+                        else if (Request.QueryString["Id"] != null) 
+                        {
+                            // Modificando articulo
+                            // negocio.modificar(premio);
+                        }
+                    }
+                    else
+                    {
+                        premioError = true;
+                        txtError.Text = "Esta Cargando un articulo ya existente en el sistema";
+                    }
+                    // IF TODO ESTA LLENO MANDAR BASE DE DATOS
+                }
+                else { premioError = true; txtError.Text = "Llene todos los campos"; }
+            }
+            catch (Exception ex) 
+            {
+                premioError = true;
+                txtError.Text = "Error al Cargar Premio";
+            }
             
         }
     }

@@ -7,11 +7,17 @@
     <title></title>
     <style>
         .Error {
-            color:red;
-
-        
+            color: red;
         }
 
+        .form-group {
+            width: 50%;
+            height: auto;
+            display: grid;
+        }
+        .Success {
+            color:green;
+        }
     </style>
 
 
@@ -20,10 +26,21 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+        <%if (Request.QueryString["Id"] != null)
+            {  %>
         <div class="form-group">
             <label>ID:</label>
             <asp:TextBox ID="txtId" runat="server" CssClass="form-control" ReadOnly="true" Text=''></asp:TextBox>
         </div>
+        <%}
+            else
+            {  %>
+
+        <%} %>
+
+
+
 
         <div class="form-group">
             <label>Código:</label>
@@ -45,20 +62,26 @@
             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
-        
 
-        <%if (premioError == 1)
+
+        <%if (premioError == true)
             {  %>
-        <asp:Label Text="No se pudo encontrar Premio en base de datos" runat="server" CssClass="Error" />
-        <%}else if(premioError == 2){  %>
-        <asp:Label Text="Error Desconocido / Vuelva a seleccionar premio" runat="server" CssClass="Error"/>
-        <%} %>
+        <asp:Label ID="txtError" Text="Error" runat="server" CssClass="Error" />
+        <%}  %>
+
+        <%if (premioSuccess == true)
+            {  %>
+        <asp:Label ID="txtSuccess" Text="Success" runat="server" CssClass="Success" />
+        <%}  %>
+
 
         <%if (Request.QueryString["Id"] != null)
             {  %>
-            <asp:Button ID="btnAccion" Text="Modificar Existente" runat="server" onclick="brnAceptar_Click"/>
-        <%}else{  %>
-        <asp:Button ID="btnAceptar" Text="Subir Nuevo" runat="server" onclick="brnAceptar_Click"/>
+        <asp:Button ID="btnAccion" Text="Modificar Existente" runat="server" OnClick="brnAceptar_Click" />
+        <%}
+            else
+            {  %>
+        <asp:Button ID="btnAceptar" Text="Subir Nuevo" runat="server" OnClick="brnAceptar_Click" />
         <%} %>
     </form>
 </body>
