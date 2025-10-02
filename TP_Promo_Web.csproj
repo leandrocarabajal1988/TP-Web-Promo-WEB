@@ -121,6 +121,8 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="PaginasAdmin\administradorArticulos.aspx" />
+    <Content Include="PaginasAdmin\AgregarPremio.aspx" />
     <Content Include="Presentacion\Exito.aspx" />
     <Content Include="Presentacion\Paso1.aspx" />
     <Content Include="Presentacion\Paso2.aspx" />
@@ -220,6 +222,20 @@
     <Compile Include="Negocio\ClienteNegocio.cs" />
     <Compile Include="Negocio\PremioNegocio.cs" />
     <Compile Include="Negocio\VoucherNegocio.cs" />
+    <Compile Include="PaginasAdmin\administradorArticulos.aspx.cs">
+      <DependentUpon>administradorArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdmin\administradorArticulos.aspx.designer.cs">
+      <DependentUpon>administradorArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasAdmin\AgregarPremio.aspx.cs">
+      <DependentUpon>AgregarPremio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdmin\AgregarPremio.aspx.designer.cs">
+      <DependentUpon>AgregarPremio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Exito.aspx.cs">
       <DependentUpon>Exito.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
