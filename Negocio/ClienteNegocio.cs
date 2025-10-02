@@ -9,30 +9,29 @@ namespace TP_Promo_Web.Negocio
 {
     public class ClienteNegocio
     {
-        public Cliente BuscarPorDNI(string dni)
+        public Cliente BuscarPorDocumento(string documento)
         {
             AccesoDatos datos = new AccesoDatos();
             Cliente cliente = null;
 
             try
             {
-                datos.setConsulta("SELECT Nombre, Apellido, Email, Pais, Direccion, Ciudad, CP, Telefono FROM Clientes WHERE DNI = @DNI");
-                datos.setearParametro("@DNI", dni);
+                datos.setConsulta("SELECT Id, Nombre, Apellido, Email, Direccion, Ciudad, CP, Documento FROM Clientes WHERE Documento = @Documento");
+                datos.setearParametro("@Documento", documento);
                 datos.ejecutarLectura();
 
                 if (datos.Lector.Read())
                 {
                     cliente = new Cliente
                     {
-                        DNI = dni,
+                        Id = (int)datos.Lector["Id"],
+                        Documento = datos.Lector["Documento"].ToString(),
                         Nombre = datos.Lector["Nombre"].ToString(),
                         Apellido = datos.Lector["Apellido"].ToString(),
                         Email = datos.Lector["Email"].ToString(),
-                        Pais = datos.Lector["Pais"].ToString(),
                         Direccion = datos.Lector["Direccion"].ToString(),
                         Ciudad = datos.Lector["Ciudad"].ToString(),
-                        CP = datos.Lector["CP"].ToString(),
-                        Telefono = datos.Lector["Telefono"].ToString()
+                        CP = Convert.ToInt32(datos.Lector["CP"])
                     };
                 }
             }
@@ -44,22 +43,21 @@ namespace TP_Promo_Web.Negocio
             return cliente;
         }
 
+
         public void Guardar(Cliente cliente)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("INSERT INTO Clientes (DNI, Nombre, Apellido, Email, Pais, Direccion, Ciudad, CP, Telefono) VALUES (@DNI, @Nombre, @Apellido, @Email, @Pais, @Direccion, @Ciudad, @CP, @Telefono)");
-                datos.setearParametro("@DNI", cliente.DNI);
+                datos.setConsulta("INSERT INTO Clientes (Documento, Nombre, Apellido, Email, Direccion, Ciudad, CP) VALUES (@Documento, @Nombre, @Apellido, @Email, @Direccion, @Ciudad, @CP)");
+                datos.setearParametro("@Documento", cliente.Documento);
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
                 datos.setearParametro("@Email", cliente.Email);
-                datos.setearParametro("@Pais", cliente.Pais);
                 datos.setearParametro("@Direccion", cliente.Direccion);
                 datos.setearParametro("@Ciudad", cliente.Ciudad);
                 datos.setearParametro("@CP", cliente.CP);
-                datos.setearParametro("@Telefono", cliente.Telefono);
                 datos.ejecutarAccion();
             }
             finally

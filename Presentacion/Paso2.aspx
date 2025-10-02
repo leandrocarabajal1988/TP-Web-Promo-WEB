@@ -6,6 +6,9 @@
 <head runat="server">
     <title>Seleccioná tu premio</title>
     <style>
+        .navbar {
+            margin-bottom: 30px;
+        }
         .premio-img {
             transition: transform 0.3s ease;
             cursor: pointer;
@@ -51,6 +54,12 @@
 </head>
 <body>
     <header>
+         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                <p class="navbar-brand" runat="server">Elegi Tu Premio !!!</p>
+                <a class="navbar-brand" runat="server" href="~/">x</a>
+            </div>
+        </nav>
     </header>
     <form id="form1" runat="server">
         <h2>Seleccioná tu premio</h2>

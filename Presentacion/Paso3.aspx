@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Registro del Cliente</title>
     <style>
         .form-container {
@@ -17,26 +17,26 @@
             background-color: #f9f9f9;
         }
 
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .form-container h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
         .form-group {
             margin-bottom: 12px;
         }
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 4px;
+            }
 
-        .form-group input {
-            width: 100%;
-            padding: 6px;
-            box-sizing: border-box;
-        }
+            .form-group input {
+                width: 100%;
+                padding: 6px;
+                box-sizing: border-box;
+            }
 
         .btn-submit {
             width: 100%;
@@ -49,9 +49,9 @@
             cursor: pointer;
         }
 
-        .btn-submit:hover {
-            background-color: #005fa3;
-        }
+            .btn-submit:hover {
+                background-color: #005fa3;
+            }
 
         .mensaje {
             text-align: center;
@@ -64,10 +64,12 @@
     <form id="form1" runat="server">
         <div class="form-container">
             <h2>Registro del Cliente</h2>
-
             <div class="form-group">
-                <label for="txtDNI">DNI</label>
-                <asp:TextBox ID="txtDNI" runat="server" />
+                <label for="txtDocumento">Documento</label>
+                <div style="display: flex; gap: 10px;">
+                    <asp:TextBox ID="txtDocumento" runat="server" CssClass="form-control" Style="flex: 1;" />
+                    <asp:Button ID="btnBuscarPorDocumento" runat="server" Text="Buscar" CssClass="btn btn-secondary" Style="width: 100px;" OnClick="btnBuscarPorDocumento_Click" />
+                </div>
             </div>
 
             <div class="form-group">
@@ -86,11 +88,6 @@
             </div>
 
             <div class="form-group">
-                <label for="txtFecha">Fecha</label>
-                <asp:TextBox ID="txtFecha" runat="server" />
-            </div>
-
-            <div class="form-group">
                 <label for="txtDireccion">Dirección</label>
                 <asp:TextBox ID="txtDireccion" runat="server" />
             </div>
@@ -103,16 +100,6 @@
             <div class="form-group">
                 <label for="txtCP">Código Postal</label>
                 <asp:TextBox ID="txtCP" runat="server" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtPais">País</label>
-                <asp:TextBox ID="txtPais" runat="server" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtTelefono">Teléfono</label>
-                <asp:TextBox ID="txtTelefono" runat="server" />
             </div>
 
             <asp:Button ID="btnParticipar" runat="server" Text="Participar!" CssClass="btn-submit" OnClick="btnParticipar_Click" />
