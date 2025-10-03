@@ -6,16 +6,23 @@
 <head runat="server">
     <title>Seleccioná tu premio</title>
     <style>
+        body {
+            background-image: url('../img/fondo.png');
+            background-repeat: repeat;
+            background-size: auto;
+        }
+
         .navbar {
             margin-bottom: 30px;
         }
+
         .premio-img {
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
             cursor: pointer;
         }
 
             .premio-img:hover {
-                transform: scale(1.1);
+                transform: scale(1.2);
             }
 
         .modal {
@@ -48,13 +55,22 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+            border-radius: 50%;
+            padding: 4px; /* más chico que 10px */
+            width: 30px; /* tamaño total más controlado */
+            height: 30px;
+        }
     </style>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
 </head>
 <body>
     <header>
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <p class="navbar-brand" runat="server">Elegi Tu Premio !!!</p>
                 <a class="navbar-brand" runat="server" href="~/">x</a>
@@ -74,7 +90,8 @@
                                         <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
                                             <ItemTemplate>
                                                 <div class="carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>">
-                                                    <img src='<%# Container.DataItem %>' class="card-img-top" alt="Imagen Premio" style="height: 200px; object-fit: cover;" onclick="abrirModal('<%# Container.DataItem %>')" />
+                                                    <img src='<%# Container.DataItem %>' class="card-img-top premio-img" alt="Imagen Premio"
+                                                        style="height: 200px; object-fit: contain;" onclick="abrirModal('<%# Container.DataItem %>')" />
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -101,13 +118,13 @@
                                 </ul>
 
                                 <div class="card-body text-center">
-                                    <asp:Button 
-    Text="Elegir" 
-    CssClass="btn btn-primary w-100" 
-    runat="server" 
-    CommandName="Elegir" 
-    CommandArgument='<%# Eval("Id") %>' 
-    OnCommand="Elegir_Command" />
+                                    <asp:Button
+                                        Text="Elegir"
+                                        CssClass="btn btn-primary w-100"
+                                        runat="server"
+                                        CommandName="Elegir"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnCommand="Elegir_Command" />
 
                                 </div>
                             </div>
@@ -134,7 +151,7 @@
         <img class="modal-content" id="imgModal" />
     </div>
 
-    <footer>Footer</footer>
+    <footer>¡Promo Ganá!</footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

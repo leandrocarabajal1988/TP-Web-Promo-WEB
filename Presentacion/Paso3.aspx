@@ -7,6 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Registro del Cliente</title>
     <style>
+        body {
+            background-image: url('../img/fondo.png');
+            background-repeat: repeat;
+            background-size: auto;
+        }
+
         .form-container {
             max-width: 500px;
             margin: 40px auto;

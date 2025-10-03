@@ -5,6 +5,12 @@
 <head runat="server">
     <title>¡Registro exitoso!</title>
     <style>
+        body {
+            background-image: url('../img/exito.png');
+            background-repeat: repeat;
+            background-size: auto;
+        }
+
         .exito-container {
             max-width: 500px;
             margin: 60px auto;
@@ -16,9 +22,9 @@
             border-radius: 10px;
         }
 
-        .exito-container h2 {
-            color: #2e7d32;
-        }
+            .exito-container h2 {
+                color: #2e7d32;
+            }
 
         .resumen {
             margin-top: 20px;

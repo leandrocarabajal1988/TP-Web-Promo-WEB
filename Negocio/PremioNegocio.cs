@@ -109,7 +109,7 @@ namespace TP_Promo_Web.Negocio
 
         }
 
-        public bool agregar(Premio nuevo) 
+        public bool agregar(Premio nuevo) //creo que no lo pedia en el tp pero dejemoslo por las dudas
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -163,7 +163,7 @@ namespace TP_Promo_Web.Negocio
         }
 
 
-        public bool modificar(Premio art)
+        public bool modificar(Premio art)//lo mismo que agregar, no lo pide el tp pero lo dejo por las dudas
         {
             AccesoDatos datos = new AccesoDatos();
             try
