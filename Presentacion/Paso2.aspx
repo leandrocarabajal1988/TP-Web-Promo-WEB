@@ -113,6 +113,16 @@
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
+                                        <strong>Marca:</strong> <%# Eval("Marca") %>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <strong>Categoria:</strong> <%# Eval("Categoria") %>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
                                         <strong>Precio:</strong> $<%# Eval("Precio") %>
                                     </li>
                                 </ul>

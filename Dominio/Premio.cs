@@ -12,6 +12,10 @@ namespace TP_Promo_Web.Dominio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
+        public int idCategoria { get; set; }
+        public string Categoria { get; set; }
+        public int idMarca { get; set; }
+        public string Marca { get; set; }
         public List<string> Imagenes { get; set; }
     }
 

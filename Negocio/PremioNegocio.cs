@@ -17,8 +17,19 @@ namespace TP_Promo_Web.Negocio
 
             try
             {
-                // busco todos los artículos
-                datos.setConsulta("SELECT Id, Codigo, Nombre, Descripcion, Precio FROM ARTICULOS");
+                // busco todos los artículos con marca y categoría
+                datos.setConsulta(@"SELECT A.Id,
+                                           A.Codigo,
+                                           A.Nombre,
+                                           A.Descripcion,
+                                           A.Precio,
+                                           A.IdMarca,
+                                           M.Descripcion AS Marca,
+                                           A.IdCategoria,
+                                           C.Descripcion AS Categoria
+                                    FROM ARTICULOS A
+                                    LEFT JOIN MARCAS M ON M.Id = A.IdMarca
+                                    LEFT JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -29,6 +40,16 @@ namespace TP_Promo_Web.Negocio
                     p.Nombre = datos.Lector["Nombre"].ToString();
                     p.Descripcion = datos.Lector["Descripcion"].ToString();
                     p.Precio = (decimal)datos.Lector["Precio"];
+
+                    // Cargar Marca
+                    // Con operador ternario ya q son campos q pueden tener null entonces hay que validar que devuelva algo o se rompe
+                    p.idMarca = datos.Lector["IdMarca"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdMarca"]) : 0;
+                    p.Marca = datos.Lector["Marca"] != DBNull.Value ? datos.Lector["Marca"].ToString() : null;
+
+                    // Cargar Categoría
+                    p.idCategoria = datos.Lector["IdCategoria"] != DBNull.Value ? Convert.ToInt32(datos.Lector["IdCategoria"]) : 0;
+                    p.Categoria = datos.Lector["Categoria"] != DBNull.Value ? datos.Lector["Categoria"].ToString() : null;
+
                     p.Imagenes = ObtenerImagenes(p.Id);
 
                     lista.Add(p);
