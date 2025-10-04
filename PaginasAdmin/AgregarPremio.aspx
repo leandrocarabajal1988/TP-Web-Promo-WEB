@@ -78,6 +78,7 @@
         <%if (Request.QueryString["Id"] != null)
             {  %>
         <asp:Button ID="btnAccion" Text="Modificar Existente" runat="server" OnClick="brnAceptar_Click" />
+        <asp:Button ID="btnEliminar" Text="Eliminar Articulo" runat="server" CssClass="Error" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Está seguro que desea eliminar este producto?');"  />
         <%}
             else
             {  %>

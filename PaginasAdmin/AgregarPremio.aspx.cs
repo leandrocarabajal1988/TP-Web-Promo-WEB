@@ -15,6 +15,7 @@ namespace TP_Promo_Web.PaginasAdmin
         protected Premio premioModificar;
         protected bool premioError;
         protected bool premioSuccess;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             premioError = false;
@@ -88,6 +89,7 @@ namespace TP_Promo_Web.PaginasAdmin
                         {
                             premioError = true;
                             txtError.Text = "Problema al cargar Premio";
+                            Console.WriteLine(ex);
                         }
                     }
                     else if (Request.QueryString["Id"] != null)
@@ -103,6 +105,7 @@ namespace TP_Promo_Web.PaginasAdmin
                         {
                             premioError = true;
                             txtError.Text = "Problema al modificar Premio";
+                            Console.WriteLine(ex);
                         }
                     }
 
@@ -114,8 +117,55 @@ namespace TP_Promo_Web.PaginasAdmin
             {
                 premioError = true;
                 txtError.Text = "Error al Cargar Premio";
+                Console.WriteLine(ex);
             }
 
         }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(Request.QueryString["id"]);
+                PremioNegocio negocio = new PremioNegocio();
+
+                if (txtId.Text != "")
+
+                {
+                    if (negocio.buscarPorID(id) != null)
+                    {
+
+                        //negocio.eliminar(id);
+                        //Response.Redirect("administradorArticulos.aspx");
+                        premioSuccess = true;
+                        txtSuccess.Text = "Premio Eliminado Correctamente";
+                        txtId.Text = "";
+                        txtCod.Text = "";
+                        txtNombre.Text = "";
+                        txtDesc.Text = "";
+                        txtPrecio.Text = "";
+                        /// FALTA LISTA IMAGENES
+                    }
+                    else
+                    {
+                        premioError = true;
+                        txtError.Text = "no se encontro premio en base de datos: ";
+                    }
+
+                }
+                else
+                {
+                    premioError = true;
+                    txtError.Text = "no hay id producto a eliminar: ";
+                }
+            }
+            catch (Exception ex)
+            {
+                premioError = true;
+                txtError.Text = "Ocurrió un error al eliminar: ";
+                Console.WriteLine(ex);
+            }
+        }
+
     }
 }
