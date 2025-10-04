@@ -35,7 +35,7 @@ namespace TP_Promo_Web.PaginasAdmin
                         {
                             // no encuentra premio en busca x id
                             premioError = true;
-                            txtError.Text = "No se pudo encontrar premio en la base de datos";
+                            lblError.Text = "No se pudo encontrar premio en la base de datos";
                         }
                         else
                         {
@@ -52,7 +52,7 @@ namespace TP_Promo_Web.PaginasAdmin
                     catch (Exception ex)
                     {
                         premioError = true;
-                        txtError.Text = "Error, Revise los datos y vuelva a cargar";
+                        lblError.Text = "Error, Revise los datos y vuelva a cargar";
                         Console.WriteLine(ex);
                     }
                 }
@@ -62,7 +62,7 @@ namespace TP_Promo_Web.PaginasAdmin
         protected void brnAceptar_Click(object sender, EventArgs e)
         {
             PremioNegocio negocio = new PremioNegocio();
-            Premio premioCargar = new Premio(); ;
+            Premio premioCargar = new Premio();
             try
             {
                 if (Request.QueryString["Id"] != null) { premioCargar.Id = int.Parse(Request.QueryString["Id"]); }
@@ -74,8 +74,12 @@ namespace TP_Promo_Web.PaginasAdmin
                     premioCargar.Nombre = txtNombre.Text;
                     premioCargar.Descripcion = txtDesc.Text;
                     premioCargar.Precio = decimal.Parse(txtPrecio.Text);
-                    /// FALTA LISTA IMAGENES
-                    /// 
+                    if (!string.IsNullOrEmpty(txtImagenes.Text))
+                    {
+                        var urls = txtImagenes.Text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                        premioCargar.Imagenes = urls.ToList();
+                    }
+
 
                     if (Request.QueryString["Id"] == null)
                     {
@@ -83,12 +87,16 @@ namespace TP_Promo_Web.PaginasAdmin
                         // negocio.agregar(premio);
                         try
                         {
-                            if (negocio.agregar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio SUbido correctamente"; }
+                            if (negocio.agregar(premioCargar)) {
+                                premioSuccess = true; lblSuccess.Text = "Premio SUbido correctamente";
+                                //negocio.cargarImagenes(id);
+                            
+                            }
                         }
                         catch (Exception ex)
                         {
                             premioError = true;
-                            txtError.Text = "Problema al cargar Premio";
+                            lblError.Text = "Problema al cargar Premio";
                             Console.WriteLine(ex);
                         }
                     }
@@ -98,25 +106,25 @@ namespace TP_Promo_Web.PaginasAdmin
                         // negocio.modificar(premio);
                         try
                         {
-                            if (negocio.modificar(premioCargar)) { premioSuccess = true; txtSuccess.Text = "Premio Modificado correctamente"; }
-                            else { premioError = true; txtError.Text = "Error modificando premio"; }
+                            if (negocio.modificar(premioCargar)) { premioSuccess = true; lblSuccess.Text = "Premio Modificado correctamente"; }
+                            else { premioError = true; lblError.Text = "Error modificando premio"; }
                         }
                         catch (Exception ex)
                         {
                             premioError = true;
-                            txtError.Text = "Problema al modificar Premio";
+                            lblError.Text = "Problema al modificar Premio";
                             Console.WriteLine(ex);
                         }
                     }
 
 
                 }
-                else { premioError = true; txtError.Text = "Llene todos los campos"; }
+                else { premioError = true; lblError.Text = "Llene todos los campos"; }
             }
             catch (Exception ex)
             {
                 premioError = true;
-                txtError.Text = "Error al Cargar Premio";
+                lblError.Text = "Error al Cargar Premio";
                 Console.WriteLine(ex);
             }
 
@@ -142,7 +150,7 @@ namespace TP_Promo_Web.PaginasAdmin
                         txtNombre.Text = "";
                         txtDesc.Text = "";
                         txtPrecio.Text = "";
-                        txtSuccess.Text = "Premio Eliminado Correctamente redireccionando ...";
+                        lblSuccess.Text = "Premio Eliminado Correctamente redireccionando ...";
                         /// estaria bueno hacerle un delay antes de redirigir
                         Response.Redirect("administradorArticulos.aspx");
                         /// FALTA LISTA IMAGENES
@@ -150,20 +158,20 @@ namespace TP_Promo_Web.PaginasAdmin
                     else
                     {
                         premioError = true;
-                        txtError.Text = "no se encontro premio en base de datos: ";
+                        lblError.Text = "no se encontro premio en base de datos: ";
                     }
 
                 }
                 else
                 {
                     premioError = true;
-                    txtError.Text = "no hay id producto a eliminar: ";
+                    lblError.Text = "no hay id producto a eliminar: ";
                 }
             }
             catch (Exception ex)
             {
                 premioError = true;
-                txtError.Text = "Ocurrió un error al eliminar: ";
+                lblError.Text = "Ocurrió un error al eliminar: ";
                 Console.WriteLine(ex);
             }
         }

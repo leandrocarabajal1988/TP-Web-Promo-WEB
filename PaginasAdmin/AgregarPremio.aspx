@@ -15,8 +15,9 @@
             height: auto;
             display: grid;
         }
+
         .Success {
-            color:green;
+            color: green;
         }
     </style>
 
@@ -62,23 +63,28 @@
             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
+        <div class="form-group">
+            <label>Imagenes:</label>
+            <asp:TextBox ID="txtImagenes" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+        </div>
+
 
 
         <%if (premioError == true)
             {  %>
-        <asp:Label ID="txtError" Text="Error" runat="server" CssClass="Error" />
+        <asp:Label ID="lblError" Text="Error" runat="server" CssClass="Error" />
         <%}  %>
 
         <%if (premioSuccess == true)
             {  %>
-        <asp:Label ID="txtSuccess" Text="Success" runat="server" CssClass="Success" />
+        <asp:Label ID="lblSuccess" Text="Success" runat="server" CssClass="Success" />
         <%}  %>
 
 
         <%if (Request.QueryString["Id"] != null)
             {  %>
         <asp:Button ID="btnAccion" Text="Modificar Existente" runat="server" OnClick="brnAceptar_Click" />
-        <asp:Button ID="btnEliminar" Text="Eliminar Articulo" runat="server" CssClass="Error" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Está seguro que desea eliminar este producto?');"  />
+        <asp:Button ID="btnEliminar" Text="Eliminar Articulo" runat="server" CssClass="Error" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Está seguro que desea eliminar este producto?');" />
         <%}
             else
             {  %>

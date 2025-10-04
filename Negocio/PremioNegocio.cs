@@ -143,12 +143,15 @@ namespace TP_Promo_Web.Negocio
                 }
                 datos.cerrarConexion();
                 // Inserto la imagen
-                //string insertImagen = "INSERT INTO IMAGENES(IdArticulo, ImagenUrl) VALUES(@IdArticulo, @ImagenUrl)";
-                //datos.setConsulta(insertImagen);
-                //datos.setearParametro("@IdArticulo", idArticulo);
-                //datos.setearParametro("@ImagenUrl", nuevo.imagen.ImagenUrl);
-                //datos.ejecutarAccion();
-                //datos.cerrarConexion();
+                foreach(var imagenUrl in nuevo.Imagenes)
+                {
+                    string insertImagen = "INSERT INTO IMAGENES(IdArticulo, ImagenUrl) VALUES(@IdArticulo, @ImagenUrl)";
+                    datos.setConsulta(insertImagen);
+                    datos.setearParametro("@IdArticulo", idArticulo);
+                    datos.setearParametro("@ImagenUrl", imagenUrl);
+                    datos.ejecutarAccion();
+                    datos.cerrarConexion();
+                }
                 return true;
             }
             catch (Exception ex)

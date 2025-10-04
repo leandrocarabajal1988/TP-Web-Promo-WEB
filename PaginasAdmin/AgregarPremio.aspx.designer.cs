@@ -69,22 +69,31 @@ namespace TP_Promo_Web.PaginasAdmin
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
 
         /// <summary>
-        /// txtError control.
+        /// txtImagenes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label txtError;
+        protected global::System.Web.UI.WebControls.TextBox txtImagenes;
 
         /// <summary>
-        /// txtSuccess control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label txtSuccess;
+        protected global::System.Web.UI.WebControls.Label lblError;
+
+        /// <summary>
+        /// lblSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSuccess;
 
         /// <summary>
         /// btnAccion control.

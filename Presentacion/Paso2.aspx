@@ -73,7 +73,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <p class="navbar-brand" runat="server">Elegi Tu Premio !!!</p>
-                <a class="navbar-brand" runat="server" href="~/">x</a>
+                <a class="navbar-brand" runat="server" href="Paso1">x</a>
             </div>
         </nav>
     </header>
