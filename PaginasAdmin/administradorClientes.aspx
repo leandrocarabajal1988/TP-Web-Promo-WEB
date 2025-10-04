@@ -10,16 +10,19 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:GridView ID="dgvClientes" runat="server" AutoGenerateColumns="True" CssClass ="table table-dark">
-            </asp:GridView>
-                <%--<Columns>
+            <asp:GridView ID="dgvClientes" runat="server" AutoGenerateColumns="false" CssClass ="table table-dark">
+                <Columns>
                     <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
+                    <asp:BoundField DataField="Documento" HeaderText="Documento" ReadOnly="True" SortExpression="Documento" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
                     <asp:BoundField DataField="Apellido" HeaderText="Apellido" SortExpression="Apellido" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
-                    <asp:BoundField DataField="Telefono" HeaderText="Telefono" SortExpression="Telefono" />
-                    <asp:CommandField ShowEditButton="True" />
-                </Columns>--%>
+                    <asp:BoundField DataField="Direccion" HeaderText="Direccion" SortExpression="Direccion" />
+                    <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" SortExpression="Ciudad" />
+                    <asp:BoundField DataField="CP" HeaderText="CP" SortExpression="CP" />
+                    <asp:HyperLinkField Text="Editar" DataNavigateUrlFields="Documento" DataNavigateUrlFormatString="AgregarCliente.aspx?Documento={0}" />
+                </Columns> 
+            </asp:GridView>
         </div>
     </form>
 

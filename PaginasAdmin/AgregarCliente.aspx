@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AgregarPremio.aspx.cs" Inherits="TP_Promo_Web.PaginasAdmin.AgregarPremio" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AgregarCliente.aspx.cs" Inherits="TP_Promo_Web.PaginasAdmin.AgregarCliente" %>
 
 <!DOCTYPE html>
 
@@ -24,24 +24,14 @@
 <body>
     <form id="form1" runat="server">
 
-        <%if (Request.QueryString["Id"] != null)
-            {  %>
         <div class="form-group">
             <label>ID:</label>
             <asp:TextBox ID="txtId" runat="server" CssClass="form-control" ReadOnly="true" Text=''></asp:TextBox>
         </div>
-        <%}
-            else
-            {  %>
-
-        <%} %>
-
-
-
 
         <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label" >Código:</label>
-            <asp:TextBox ID="txtCod" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+            <label for="formGroupExampleInput" class="form-label">Documento:</label>
+            <asp:TextBox ID="txtDocumento" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
         <div class="form-group">
@@ -50,36 +40,43 @@
         </div>
 
         <div class="form-group">
-            <label>Descripción:</label>
-            <asp:TextBox ID="txtDesc" runat="server" CssClass="form-control" TextMode="MultiLine" Text=''></asp:TextBox>
+            <label>Apellido:</label>
+            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" TextMode="MultiLine" Text=''></asp:TextBox>
         </div>
 
         <div class="form-group">
-            <label>Precio:</label>
-            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+            <label>Email:</label>
+            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
-        <div class="form-group">
-            <label>Imagenes Subir cada una separada por espacios:</label>
-            <asp:TextBox ID="txtImagenes" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+        <div>
+            <label>Direccion:</label>
+            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
-        // Hacer dropdown para categorias y para marcas
-        // Elegir existente o sumar una nueva
+        <div>
+            <label>Ciudad:</label>
+            <asp:TextBox ID="txtCiudad" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+        </div>
+
+        <div>
+            <label>Codigo Postal:</label>
+            <asp:TextBox ID="txtCP" runat="server" CssClass="form-control" Text=''></asp:TextBox>
+        </div>
 
 
-        <%if (premioError == true)
+        <%if (clienteError == true)
             {  %>
         <asp:Label ID="lblError" Text="Error" runat="server" CssClass="Error" />
         <%}  %>
 
-        <%if (premioSuccess == true)
+        <%if (clienteSuccess == true)
             {  %>
         <asp:Label ID="lblSuccess" Text="Success" runat="server" CssClass="Success" />
         <%}  %>
 
 
-        <%if (Request.QueryString["Id"] != null)
+        <%if (Request.QueryString["Documento"] != null)
             {  %>
         <asp:Button ID="btnAccion" Text="Modificar Existente" runat="server" OnClick="brnAceptar_Click" />
         <asp:Button ID="btnEliminar" Text="Eliminar Articulo" runat="server" CssClass="Error" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Está seguro que desea eliminar este producto?');" />

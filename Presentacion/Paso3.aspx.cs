@@ -54,8 +54,19 @@ namespace TP_Promo_Web.Presentacion
                 CP = Convert.ToInt32(txtCP.Text),
             };
 
+            ClienteNegocio negocio = new ClienteNegocio();
+            Cliente validar = negocio.BuscarPorDocumento(cliente.Documento);
+
+            if (validar == null) 
+            {
             GuardarCliente(cliente);
             Response.Redirect("Exito.aspx");
+            }
+            else
+            {
+                lblMensaje.Text = "Cliente Ya existente.";
+            }
+
         }
 
         protected void btnBuscarPorDocumento_Click(object sender, EventArgs e)
