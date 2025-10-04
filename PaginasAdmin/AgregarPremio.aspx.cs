@@ -135,15 +135,16 @@ namespace TP_Promo_Web.PaginasAdmin
                     if (negocio.buscarPorID(id) != null)
                     {
 
-                        //negocio.eliminar(id);
-                        //Response.Redirect("administradorArticulos.aspx");
+                        negocio.eliminar(id);
                         premioSuccess = true;
-                        txtSuccess.Text = "Premio Eliminado Correctamente";
                         txtId.Text = "";
                         txtCod.Text = "";
                         txtNombre.Text = "";
                         txtDesc.Text = "";
                         txtPrecio.Text = "";
+                        txtSuccess.Text = "Premio Eliminado Correctamente redireccionando ...";
+                        /// estaria bueno hacerle un delay antes de redirigir
+                        Response.Redirect("administradorArticulos.aspx");
                         /// FALTA LISTA IMAGENES
                     }
                     else

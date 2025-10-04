@@ -233,5 +233,27 @@ namespace TP_Promo_Web.Negocio
             }
         }
 
+        public void eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM ARTICULOS WHERE id = @id";
+                datos.setConsulta(consulta);
+                datos.Comando.Parameters.Clear();
+                datos.setearParametro("@id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
