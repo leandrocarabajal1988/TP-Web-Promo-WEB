@@ -65,5 +65,75 @@ namespace TP_Promo_Web.Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void Actualizar(Cliente cliente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE Clientes SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Direccion = @Direccion, Ciudad = @Ciudad, CP = @CP WHERE Documento = @Documento");
+                datos.setearParametro("@Documento", cliente.Documento);
+                datos.setearParametro("@Nombre", cliente.Nombre);
+                datos.setearParametro("@Apellido", cliente.Apellido);
+                datos.setearParametro("@Email", cliente.Email);
+                datos.setearParametro("@Direccion", cliente.Direccion);
+                datos.setearParametro("@Ciudad", cliente.Ciudad);
+                datos.setearParametro("@CP", cliente.CP);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Eliminar(string documento)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Clientes WHERE Documento = @Documento");
+                datos.setearParametro("@Documento", documento);
+                datos.ejecutarAccion();
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Cliente> listarConSp()
+        {
+            List<Cliente> lista = new List<Cliente>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearSP("storedListar");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Cliente cliente = new Cliente();
+                    cliente.Id = (int)datos.Lector["Id"];
+                    cliente.Documento = datos.Lector["Documento"].ToString();
+                    cliente.Nombre = datos.Lector["Nombre"].ToString();
+                    cliente.Apellido = datos.Lector["Apellido"].ToString();
+                    cliente.Email = datos.Lector["Email"].ToString();
+                    cliente.Direccion = datos.Lector["Direccion"].ToString();
+                    cliente.Ciudad = datos.Lector["Ciudad"].ToString();
+                    cliente.CP = int.Parse(datos.Lector["CP"].ToString());
+                    lista.Add(cliente);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

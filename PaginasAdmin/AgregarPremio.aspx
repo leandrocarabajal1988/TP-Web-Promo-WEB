@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group">
-            <label>Imagenes:</label>
+            <label>Imagenes Subir cada una separada por espacios:</label>
             <asp:TextBox ID="txtImagenes" runat="server" CssClass="form-control" Text=''></asp:TextBox>
         </div>
 
