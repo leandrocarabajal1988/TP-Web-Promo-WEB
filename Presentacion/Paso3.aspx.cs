@@ -60,7 +60,15 @@ namespace TP_Promo_Web.Presentacion
             if (validar == null) 
             {
             GuardarCliente(cliente);
-            Response.Redirect("Exito.aspx");
+                // Marco el voucher como usado
+                string codigoVoucher = Session["CodigoVoucher"]?.ToString(); 
+                if (!string.IsNullOrEmpty(codigoVoucher))
+                {
+                    VoucherNegocio voucherNegocio = new VoucherNegocio();
+                    voucherNegocio.AsignarClienteAVoucher(codigoVoucher, cliente.Documento);
+                }
+
+                Response.Redirect("Exito.aspx");
             }
             else
             {

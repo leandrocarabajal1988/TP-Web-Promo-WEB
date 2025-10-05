@@ -25,7 +25,9 @@ namespace TP_Promo_Web.Presentacion
 
             if (valido)
             {
-                Response.Redirect("Paso2.aspx?codigo=" + codigo);// Redirigir a la siguiente página con el código como parámetro
+                // Si es válido, lo guardás en Session para usarlo en Paso3
+                Session["CodigoVoucher"] = codigo;
+                Response.Redirect("Paso2.aspx");
             }
             else
             {

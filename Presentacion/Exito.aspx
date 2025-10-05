@@ -34,10 +34,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="exito-container">
-            <h2>¡Gracias por participar!</h2>
-            <asp:Label ID="lblResumen" runat="server" CssClass="resumen" />
-        </div>
+    <div class="exito-container">
+        <h2>¡Gracias por participar!</h2>
+        <asp:Label ID="lblResumen" runat="server" CssClass="resumen" />
+    </div>
+
+    <div class="text-center mt-5 mb-5">
+<asp:Button ID="btnVolverInicio" runat="server" Text="🔄 Cargar otro baucher" PostBackUrl="~/Presentacion/Paso1.aspx" CssClass="btn btn-success btn-lg" />
+</div>
+</form>
     </form>
 </body>
 </html>

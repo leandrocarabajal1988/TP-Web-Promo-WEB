@@ -33,5 +33,30 @@ namespace TP_Promo_Web.Negocio
                 throw ex;
             }
         }
+
+        public void AsignarClienteAVoucher(string codigoVoucher, string documentoCliente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"UPDATE Vouchers 
+                            SET IdCliente = (SELECT Id FROM Clientes WHERE Documento = @documento) 
+                            WHERE CodigoVoucher = @codigo";
+
+                datos.setConsulta(consulta);
+                datos.setearParametro("@documento", documentoCliente);
+                datos.setearParametro("@codigo", codigoVoucher);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
