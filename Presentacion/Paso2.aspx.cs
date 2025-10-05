@@ -24,11 +24,12 @@ namespace TP_Promo_Web.Presentacion
         protected void Elegir_Command(object sender, CommandEventArgs e)
         {
             string idPremio = e.CommandArgument.ToString();
-            string codigo = Request.QueryString["codigo"];
+            string codigo = Session["CodigoVoucher"]?.ToString();
 
             // Redirigir al paso 3 con el código y el premio seleccionado
             Response.Redirect($"Paso3.aspx?codigo={codigo}&premio={idPremio}");
         }
+
 
 
     }

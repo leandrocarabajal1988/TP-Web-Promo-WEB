@@ -57,25 +57,31 @@ namespace TP_Promo_Web.Presentacion
             ClienteNegocio negocio = new ClienteNegocio();
             Cliente validar = negocio.BuscarPorDocumento(cliente.Documento);
 
-            if (validar == null) 
+            if (validar == null)
             {
-            GuardarCliente(cliente);
-                // Marco el voucher como usado
-                string codigoVoucher = Session["CodigoVoucher"]?.ToString(); 
-                if (!string.IsNullOrEmpty(codigoVoucher))
-                {
-                    VoucherNegocio voucherNegocio = new VoucherNegocio();
-                    voucherNegocio.AsignarClienteAVoucher(codigoVoucher, cliente.Documento);
-                }
-
-                Response.Redirect("Exito.aspx");
+                GuardarCliente(cliente); // cliente nuevo
+                cliente = negocio.BuscarPorDocumento(cliente.Documento); // recupero el Id
             }
             else
             {
-                lblMensaje.Text = "Cliente Ya existente.";
+                cliente = validar; // cliente ya existente
             }
 
+            // Marcar el voucher como usado
+            string codigoVoucher = Request.QueryString["codigo"];
+            string premioParam = Request.QueryString["premio"];
+
+            if (!string.IsNullOrEmpty(codigoVoucher) && !string.IsNullOrEmpty(premioParam))
+            {
+                int idArticulo = Convert.ToInt32(premioParam);
+
+                VoucherNegocio voucherNegocio = new VoucherNegocio();
+                voucherNegocio.AsignarClienteAVoucher(codigoVoucher, cliente.Id, idArticulo);
+            }
+
+            Response.Redirect("Exito.aspx");
         }
+
 
         protected void btnBuscarPorDocumento_Click(object sender, EventArgs e)
         {

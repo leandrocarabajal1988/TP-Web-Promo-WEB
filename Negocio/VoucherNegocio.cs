@@ -13,40 +13,23 @@ namespace TP_Promo_Web.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("SELECT IdCliente FROM Vouchers WHERE CodigoVoucher = @codigo");
+                datos.setConsulta(@"SELECT IdCliente, FechaCanje, IdArticulo 
+                            FROM Vouchers 
+                            WHERE CodigoVoucher = @codigo");
                 datos.setearParametro("@codigo", codigo);
                 datos.ejecutarLectura();
 
                 if (datos.Lector.Read())
                 {
                     object idCliente = datos.Lector["IdCliente"];
-                    datos.cerrarConexion();
-                    return idCliente == DBNull.Value; // si no hay cliente asignado, se puede usar
+                    object fechaCanje = datos.Lector["FechaCanje"];
+                    object idArticulo = datos.Lector["IdArticulo"];
+
+                    // Solo es válido si no fue usado
+                    return idCliente == DBNull.Value && fechaCanje == DBNull.Value && idArticulo == DBNull.Value;
                 }
 
-                datos.cerrarConexion();
-                return false; // No existe el código
-            }
-            catch (Exception ex)
-            {
-                datos.cerrarConexion();
-                throw ex;
-            }
-        }
-
-        public void AsignarClienteAVoucher(string codigoVoucher, string documentoCliente)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                string consulta = @"UPDATE Vouchers 
-                            SET IdCliente = (SELECT Id FROM Clientes WHERE Documento = @documento) 
-                            WHERE CodigoVoucher = @codigo";
-
-                datos.setConsulta(consulta);
-                datos.setearParametro("@documento", documentoCliente);
-                datos.setearParametro("@codigo", codigoVoucher);
-                datos.ejecutarAccion();
+                return false; // no existe el código
             }
             catch (Exception ex)
             {
@@ -58,5 +41,34 @@ namespace TP_Promo_Web.Negocio
             }
         }
 
+
+        public void AsignarClienteAVoucher(string codigoVoucher, int idCliente, int idArticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"UPDATE Vouchers 
+                            SET IdCliente = @idCliente, 
+                                FechaCanje = GETDATE(), 
+                                IdArticulo = @idArticulo 
+                            WHERE CodigoVoucher = @codigo";
+
+                datos.setConsulta(consulta);
+                datos.setearParametro("@idCliente", idCliente);
+                datos.setearParametro("@idArticulo", idArticulo);
+                datos.setearParametro("@codigo", codigoVoucher);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+        }
     }
 }
